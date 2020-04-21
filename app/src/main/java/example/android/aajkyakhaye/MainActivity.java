@@ -1,20 +1,23 @@
 package example.android.aajkyakhaye;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
+
 import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> menuBreakfast = new ArrayList<>(Arrays.asList("Poha", "Upma", "Aloo Paratha", "Maggie", "Ready to Eat Pasta", "Onion Utthapa", "Sandwich"));
-    ArrayList<String> menuLunch = new ArrayList<>(Arrays.asList("Dal Rice", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Parata & Gravy Sabji", "Gobi Paratha & Gravy Sabji", "Muli Parata & Gravy Sabji", "Palak Paratha & Gravy Sabji", "Chhole Naan"));
-    ArrayList<String> menuEveningSnacks = new ArrayList<>(Arrays.asList("Maggie", "Geela Bhel", "Sevpuri", "Ready to Eat Pasta", "Bread-Butter", "Sandwich", "Vada Paav"));
-    ArrayList<String> menuDinner = new ArrayList<>(Arrays.asList("Masala Dosa", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Parata & Gravy Sabji"));
-    //ArrayList<String> test = new ArrayList<>(Arrays.asList(@st));
+    ArrayList<String> breakfastMenu = new ArrayList<>(Arrays.asList("Poha", "Upma", "Aloo Paratha", "Maggie", "Ready to Eat Pasta", "Onion Utthapa", "Sandwich"));
+    ArrayList<String> lunchMenu = new ArrayList<>(Arrays.asList("Dal Rice", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji", "Gobi Paratha & Gravy Sabji", "Muli Paratha & Gravy Sabji", "Palak Paratha & Gravy Sabji", "Chhole Naan"));
+    ArrayList<String> eveningSnacksMenu = new ArrayList<>(Arrays.asList("Maggie", "Geela Bhel", "Sevpuri", "Ready to Eat Pasta", "Bread-Butter", "Sandwich", "Vada Paav"));
+    ArrayList<String> dinnerMenu = new ArrayList<>(Arrays.asList("Masala Dosa", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji"));
 
-    String dishName, breakfast, lunch, eveningSnacks, dinner;
+    String dishName, breakfast, lunch, eveningSnacks, dinner, todaysMenu;
+    CheckBox breakfastCheckbox, lunchCheckbox, eveningSnacksCheckbox, dinnerCheckbox;
+    boolean hasBreakfast, hasLunch, hasEveningSnacks, hasDinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,49 +26,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickToKnow(View view) {
-        CheckBox breakfastCheckbox = findViewById(R.id.breakfast);
-        boolean hasBreakfast = breakfastCheckbox.isChecked();
-        if (hasBreakfast) {
-            breakfast = getDishName(menuBreakfast);
-        } else {
-            breakfast = "NA";
-        }
+        breakfastCheckbox = findViewById(R.id.breakfast);
+        hasBreakfast = breakfastCheckbox.isChecked();
+        breakfast = getDishName(hasBreakfast, breakfastMenu);
 
-        CheckBox lunchCheckbox = findViewById(R.id.lunch);
-        boolean hasLunch = lunchCheckbox.isChecked();
-        if (hasLunch) {
-            lunch = getDishName(menuLunch);
-        } else {
-            lunch = "NA";
-        }
+        lunchCheckbox = findViewById(R.id.lunch);
+        hasLunch = lunchCheckbox.isChecked();
+        lunch = getDishName(hasLunch, lunchMenu);
 
-        CheckBox eveningSnacksCheckbox = findViewById(R.id.evening_snacks);
-        boolean hasEveningSnacks = eveningSnacksCheckbox.isChecked();
-        if (hasEveningSnacks) {
-            eveningSnacks = getDishName(menuEveningSnacks);
-        } else {
-            eveningSnacks = "NA";
-        }
+        eveningSnacksCheckbox = findViewById(R.id.evening_snacks);
+        hasEveningSnacks = eveningSnacksCheckbox.isChecked();
+        eveningSnacks = getDishName(hasEveningSnacks, eveningSnacksMenu);
 
-        CheckBox dinnerCheckbox = findViewById(R.id.dinner);
-        boolean hasDinner = dinnerCheckbox.isChecked();
-        if (hasDinner) {
-            dinner = getDishName(menuDinner);
-        } else {
-            dinner = "NA";
-        }
+        dinnerCheckbox = findViewById(R.id.dinner);
+        hasDinner = dinnerCheckbox.isChecked();
+        dinner = getDishName(hasDinner, dinnerMenu);
 
-//        String.valueOf(!breakfast.equals(eveningSnacks));
-//        String.valueOf(!lunch.equals(dinner));
+        todaysMenu = displayTodaysMenu(breakfast, lunch, eveningSnacks, dinner);
 
-        String todaysMenu = displayTodaysMenu(breakfast, lunch, eveningSnacks, dinner);
         displayMessage(todaysMenu);
     }
 
-    public String getDishName(ArrayList mealList) {
-//        int number = (int) (Math.random() * mealList.size());
-//        return dishName = (String) mealList.get(number);
-        return dishName = (String) mealList.get((int) (Math.random() * mealList.size()));
+    public String getDishName(boolean mealType, ArrayList mealList) {
+
+        List<String> temp_DishList = new ArrayList<>();
+
+        if (mealType) {
+            dishName = (String) mealList.get((int) (Math.random() * mealList.size()));
+            temp_DishList.add(dishName);
+        } else {
+            dishName = "NA";
+        }
+        return dishName;
     }
 
     private void displayMessage(String message) {
@@ -74,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String displayTodaysMenu(String breakfast, String lunch, String eveningSnacks, String dinner) {
-        String todaysMenu = "Today's Menu :\n";
+        todaysMenu = "Today's Menu :\n";
         todaysMenu += "\nBreakfast : " + breakfast;
         todaysMenu += "\nLunch : " + lunch;
         todaysMenu += "\nEvening Snacks : " + eveningSnacks;
