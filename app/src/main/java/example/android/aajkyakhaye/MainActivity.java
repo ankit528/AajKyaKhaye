@@ -13,7 +13,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> breakfastMenu = new ArrayList<>(Arrays.asList("Poha", "Upma", "Aloo Paratha", "Maggie", "Ready to Eat Pasta", "Onion Utthapa", "Sandwich"));
     ArrayList<String> lunchMenu = new ArrayList<>(Arrays.asList("Dal Rice", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji", "Gobi Paratha & Gravy Sabji", "Muli Paratha & Gravy Sabji", "Palak Paratha & Gravy Sabji", "Chhole Naan"));
     ArrayList<String> eveningSnacksMenu = new ArrayList<>(Arrays.asList("Maggie", "Geela Bhel", "Sevpuri", "Ready to Eat Pasta", "Bread-Butter", "Sandwich", "Vada Paav"));
-    ArrayList<String> dinnerMenu = new ArrayList<>(Arrays.asList("Masala Dosa", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji"));
+    ArrayList<String> dinnerMenu = new ArrayList<>(Arrays.asList("Masala Dosa", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji", "Gobi Paratha & Gravy Sabji","Muli Paratha & Gravy Sabji", "Palak Paratha & Gravy Sabji","Chhole Naan","Missal Paav","Dal Rice","Bread Vada","Pakode"));
+
+    List<String> temp_DishList = new ArrayList<>();
 
     String dishName, breakfast, lunch, eveningSnacks, dinner, todaysMenu;
     CheckBox breakfastCheckbox, lunchCheckbox, eveningSnacksCheckbox, dinnerCheckbox;
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clickToKnow(View view) {
+        temp_DishList.clear();
+
         breakfastCheckbox = findViewById(R.id.breakfast);
         hasBreakfast = breakfastCheckbox.isChecked();
         breakfast = getDishName(hasBreakfast, breakfastMenu);
@@ -48,16 +52,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String getDishName(boolean mealType, ArrayList mealList) {
-
-        List<String> temp_DishList = new ArrayList<>();
-
+        dishName = "NA";
         if (mealType) {
-            dishName = (String) mealList.get((int) (Math.random() * mealList.size()));
+            do {
+                dishName = (String) mealList.get((int) (Math.random() * mealList.size()));
+            } while (isDishNameAlreadyExist(dishName));
             temp_DishList.add(dishName);
-        } else {
-            dishName = "NA";
         }
         return dishName;
+    }
+
+    public boolean isDishNameAlreadyExist(String dishName) {
+        if (temp_DishList.size() == 0) {
+            return false;
+        } else if (!temp_DishList.contains(dishName)) {
+            return false;
+        } else
+            return true;
     }
 
     private void displayMessage(String message) {
