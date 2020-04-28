@@ -1,19 +1,22 @@
 package example.android.aajkyakhaye;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.*;
+import android.widget.CheckBox;
+import android.widget.TextView;
 
-import java.util.*;
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ArrayList<String> breakfastMenu = new ArrayList<>(Arrays.asList("Poha", "Upma", "Aloo Paratha", "Maggie", "Ready to Eat Pasta", "Onion Utthapa", "Sandwich"));
     ArrayList<String> lunchMenu = new ArrayList<>(Arrays.asList("Dal Rice", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji", "Gobi Paratha & Gravy Sabji", "Muli Paratha & Gravy Sabji", "Palak Paratha & Gravy Sabji", "Chhole Naan"));
     ArrayList<String> eveningSnacksMenu = new ArrayList<>(Arrays.asList("Maggie", "Geela Bhel", "Sevpuri", "Ready to Eat Pasta", "Bread-Butter", "Sandwich", "Vada Paav"));
-    ArrayList<String> dinnerMenu = new ArrayList<>(Arrays.asList("Masala Dosa", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji", "Gobi Paratha & Gravy Sabji","Muli Paratha & Gravy Sabji", "Palak Paratha & Gravy Sabji","Chhole Naan","Missal Paav","Dal Rice","Bread Vada","Pakode"));
+    ArrayList<String> dinnerMenu = new ArrayList<>(Arrays.asList("Masala Dosa", "Masala Khichdi", "Roti, Sukhi Sabji & Dal", "Paratha & Gravy Sabji", "Gobi Paratha & Gravy Sabji", "Muli Paratha & Gravy Sabji", "Palak Paratha & Gravy Sabji", "Chhole Naan", "Missal Paav", "Dal Rice", "Bread Vada", "Pakode"));
 
     List<String> temp_DishList = new ArrayList<>();
 
@@ -71,8 +74,9 @@ public class MainActivity extends AppCompatActivity {
             return true;
     }
 
-    private void displayMessage(String message) {
-        TextView displayTodayMenu = findViewById(R.id.display_today_menu);
+    void displayMessage(String message) {
+        setContentView(R.layout.display_menu);
+        TextView displayTodayMenu = findViewById(R.id.todays_menu_list);
         displayTodayMenu.setText(message);
     }
 
