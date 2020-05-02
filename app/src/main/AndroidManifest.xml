@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_ajj_kya_Khaye"
+        android:icon="@drawable/ic_ajj_kya_khaye"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_ajj_kya_Khaye"
+        android:roundIcon="@drawable/ic_ajj_kya_khaye"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
